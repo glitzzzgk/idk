@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ff9a9e">
+<title>What's Wrong With You?!</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;overflow-x:hidden;font-family:'Trebuchet MS',Arial,sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb,#a6c1ee);background-size:300% 300%;animation:bg 12s ease infinite;display:flex;justify-content:center;align-items:center;text-align:center;padding:150px 16px;position:relative}
+@keyframes bg{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+.container{position:relative;z-index:5;width:min(100%,620px);padding:30px 22px;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);border:3px solid #fff;border-radius:30px;box-shadow:0 15px 45px #0003}
+h1{font-size:clamp(2rem,7vw,3.5rem);line-height:1.1;color:#ff2875;text-shadow:3px 3px #fff,5px 5px #ffb3d1;margin-bottom:12px;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.subtitle{color:#555;font-size:15px;margin-bottom:8px}
+.photo-stage{height:390px;max-width:440px;margin:0 auto;position:relative;display:flex;align-items:center;justify-content:center}
+.photo-frame{width:min(70vw,330px);height:min(70vw,330px);padding:9px;background:#fff;border:6px dashed #ff55a5;border-radius:25px;box-shadow:0 8px 25px #ff2d8240;transform:rotate(-2deg);transition:transform .3s;position:relative;z-index:2;overflow:hidden}
+.photo-frame:hover{transform:rotate(1deg) scale(1.025)}
+#personPhoto{width:100%;height:100%;display:block;object-fit:cover;border-radius:14px}
+.arrow{position:absolute;z-index:3;color:#ff1744;font-size:clamp(28px,5vw,44px);font-weight:1000;line-height:1;text-shadow:2px 2px #fff,3px 3px #fff;pointer-events:none;animation:point .8s ease-in-out infinite alternate}
+@keyframes point{from{scale:.85}to{scale:1.18}}
+.a1{top:5%;left:18%;transform:rotate(45deg)}.a2{top:0;left:49%}.a3{top:5%;right:18%}.a4{top:45%;left:1%}.a5{top:45%;right:1%}.a6{bottom:5%;left:18%}.a7{bottom:0;left:49%}.a8{bottom:5%;right:18%}
+.buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:8px}
+button{border:0;padding:15px 21px;border-radius:30px;font-size:14px;font-weight:900;color:white;cursor:pointer;box-shadow:0 5px 15px #0002;transition:transform .2s,box-shadow .2s}
+button:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 20px #0003}button:active{transform:scale(.97)}
+.confetti-button{background:linear-gradient(135deg,#ff9f43,#ff5e57)}
+.surprise-button{background:linear-gradient(135deg,#7952ff,#c04dff);animation:glow 1.5s infinite alternate}
+@keyframes glow{from{box-shadow:0 0 5px #a855f7}to{box-shadow:0 0 20px #a855f7}}
+.footer{margin-top:22px;color:#666;font-size:13px}
+.cat{position:fixed;z-index:1;width:clamp(66px,9vw,112px);aspect-ratio:1;object-fit:cover;border:4px solid white;border-radius:17px;box-shadow:0 8px 20px #0003;animation:float 4s ease-in-out infinite;pointer-events:none}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -12px}}
+.cat1{top:2%;left:2%;transform:rotate(-12deg)}.cat2{top:3%;left:22%;animation-delay:.5s}.cat3{top:2%;right:22%;animation-delay:1s}.cat4{top:3%;right:2%;transform:rotate(12deg);animation-delay:1.5s}
+.cat5{top:42%;left:2%;animation-delay:.8s}.cat6{top:42%;right:2%;animation-delay:1.3s}
+.cat7{bottom:3%;left:2%;animation-delay:.3s}.cat8{bottom:3%;left:22%;animation-delay:1.1s}.cat9{bottom:3%;right:22%;animation-delay:1.7s}.cat10{bottom:3%;right:2%;animation-delay:2s}
+@media(max-width:600px){body{padding:145px 10px}.container{padding:23px 12px}.photo-stage{height:300px}.photo-frame{width:min(67vw,260px);height:min(67vw,260px)}.cat{width:54px;border-width:3px;border-radius:11px}.cat2,.cat3,.cat8,.cat9{display:block}.cat5{top:47%}.cat6{top:47%}.arrow{font-size:27px}.a1,.a6{left:12%}.a3,.a8{right:12%}button{font-size:12px;padding:13px 15px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<!-- Ten cat pictures. Internet access is needed for these external images. -->
+<img class="cat cat1" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300" alt="Cat 1">
+<img class="cat cat2" src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=300" alt="Cat 2">
+<img class="cat cat3" src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=300" alt="Cat 3">
+<img class="cat cat4" src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=300" alt="Cat 4">
+<img class="cat cat5" src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=300" alt="Cat 5">
+<img class="cat cat6" src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?w=300" alt="Cat 6">
+<img class="cat cat7" src="https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?w=300" alt="Cat 7">
+<img class="cat cat8" src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=300" alt="Cat 8">
+<img class="cat cat9" src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300" alt="Cat 9">
+<img class="cat cat10" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=300" alt="Cat 10">
+
+<main class="container">
+  <h1>What's wrong with you?!</h1>
+  <p class="subtitle">We need answers. Look at this individual.</p>
+  <section class="photo-stage" aria-label="Featured photograph">
+    <span class="arrow a1" aria-hidden="true">↘</span>
+    <span class="arrow a2" aria-hidden="true">↓</span>
+    <span class="arrow a3" aria-hidden="true">↙</span>
+    <span class="arrow a4" aria-hidden="true">→</span>
+    <span class="arrow a5" aria-hidden="true">←</span>
+    <span class="arrow a6" aria-hidden="true">↗</span>
+    <span class="arrow a7" aria-hidden="true">↑</span>
+    <span class="arrow a8" aria-hidden="true">↖</span>
+    <div class="photo-frame"><img id="personPhoto" src="person.png" alt="Featured person"></div>
+  </section>
+  <div class="buttons">
+    <button class="confetti-button" id="confettiBtn">🎉 MORE CHAOS</button>
+    <button class="surprise-button" id="surpriseBtn">🎁 CLICK HERE FOR A SURPRISE!</button>
+  </div>
+  <p class="footer">Certified chaos department © 2026</p>
+</main>
+
+<audio id="surpriseAudio" src="surprise.mp3" preload="auto" loop></audio>
+
+<script>
+function launchConfetti(){
+  if(typeof confetti!=="function")return;
+  const end=Date.now()+2500;
+  (function frame(){
+    confetti({particleCount:8,angle:60,spread:70,origin:{x:0,y:.7}});
+    confetti({particleCount:8,angle:120,spread:70,origin:{x:1,y:.7}});
+    if(Date.now()<end)requestAnimationFrame(frame);
+  })();
+  confetti({particleCount:150,spread:120,origin:{y:.6}});
+}
+window.addEventListener("load",()=>setTimeout(launchConfetti,500));
+document.getElementById("confettiBtn").addEventListener("click",launchConfetti);
+
+const audio=document.getElementById("surpriseAudio");
+const surpriseBtn=document.getElementById("surpriseBtn");
+let musicPlaying=false;
+surpriseBtn.addEventListener("click",async()=>{
+  if(!musicPlaying){
+    try{
+      await audio.play();
+      musicPlaying=true;
+      surpriseBtn.textContent="🎁 SURPRISE ACTIVATED! (PAUSE)";
+      launchConfetti();
+    }catch(error){
+      console.error("Audio playback failed:",error);
+      alert("Couldn't play the surprise. Check that surprise.mp3 is in the same folder as index.html.");
+    }
+  }else{
+    audio.pause();
+    musicPlaying=false;
+    surpriseBtn.textContent="🎁 CLICK HERE FOR A SURPRISE!";
+  }
+});
+
+document.getElementById("personPhoto").addEventListener("error",()=>{
+  console.error("person.png was not found. Check the filename and repository folder.");
+});
+</script>
+</body>
+</html>
